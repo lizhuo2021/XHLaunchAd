@@ -34,9 +34,13 @@
 - (instancetype)initWithSkipType:(SkipType)skipType{
     self = [super init];
     if (self) {
-        
         _skipType = skipType;
-        CGFloat y = XH_FULLSCREEN ? 44 : 20;
+        CGFloat y;
+        if (@available(iOS 11.0, *)) {
+            y = XH_SAFEAREAINSETS.top;
+        } else {
+            y = 20;
+        }
         self.frame = CGRectMake(XH_ScreenW-80,y, 70, 35);//方形
         switch (skipType) {
             case SkipTypeRoundTime:
